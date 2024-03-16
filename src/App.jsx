@@ -28,7 +28,7 @@ function App() {
         <input type="number" placeholder='Calorias (e.g. 2000)' onChange={handleChange} />
       </section>
       <button onClick={getMealData}>Obtener Plan Diario</button>
-      {mealData && <MealList mealList={mealData} />}
+      {mealData && <MealList mealData={mealData} />}
     </div>
   )
 }
