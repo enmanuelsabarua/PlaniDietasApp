@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import { MealList } from './components/MealList';
+import { MealList } from './components/MealList/MealList';
+import { NavBar } from './components/NavBar/NavBar';
 
 function App() {
   const [mealData, setMealData] = useState(null);
@@ -24,6 +25,7 @@ function App() {
 
   return (
     <div className="App">
+      <NavBar />
       <section className="controls">
         <input type="number" placeholder='Calorias (e.g. 2000)' onChange={handleChange} />
       </section>

@@ -1,0 +1,31 @@
+article {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  margin: 0 1rem;
+  max-width: 18rem;
+  box-shadow: 0 4px 8px 3px rgba(77, 77, 77, 0.15);
+}
+
+.instructions {
+  font-size: 0.9;
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  background-color: rgb(252, 229, 50);
+  color: black;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+}
+
+a:hover {
+  cursor: pointer;
+  background-color: rgb(211, 192, 44);
+}
+
+.meal img {
+  width: 100%;
+  margin-bottom: 1rem;
+}

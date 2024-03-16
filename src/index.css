@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Bai Jamjuree", sans-serif;
+  background-color: #f3f3f3;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+img {
+  width: 100%;
+}

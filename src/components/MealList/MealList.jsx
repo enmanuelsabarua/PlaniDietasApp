@@ -1,4 +1,5 @@
-import { Meal } from "./Meal"
+import { Meal } from "../Meal/Meal"
+import './MealList.css';
 
 export const MealList = ({ mealData }) => {
   const nutrients = mealData.nutrients;
@@ -10,12 +11,12 @@ export const MealList = ({ mealData }) => {
         <ul>
           <li>Calorías: {nutrients.calories.toFixed(0)}</li>
           <li>Carbohidratos: {nutrients.carbohydrates.toFixed(0)}</li>
-          <li>Fat: {nutrients.fat.toFixed(0)}</li>
-          <li>Protein: {nutrients.protein.toFixed(0)}</li>
+          <li>Grasa: {nutrients.fat.toFixed(0)}</li>
+          <li>Proteína: {nutrients.protein.toFixed(0)}</li>
         </ul>
       </section>
 
-      <section className="meal">
+      <section className="meals">
         {mealData.meals.map(meal => <Meal key={meal.id} meal={meal} />)}
       </section>
     </main>
