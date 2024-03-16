@@ -2,7 +2,6 @@ import { Meal } from "./Meal"
 
 export const MealList = ({ mealData }) => {
   const nutrients = mealData.nutrients;
-  console.log(mealData);
 
   return (
     <main>

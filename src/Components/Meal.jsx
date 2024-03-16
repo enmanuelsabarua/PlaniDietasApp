@@ -1,7 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Meal = ({ meal }) => {
     const [imageUrl, setImageUrl] = useState("");
+
+    useEffect(() => {
+        fetch(
+            `https://api.spoonacular.com/recipes/${meal.id}/information?apiKey=7ee5a525aaef40808ebc28627d337369&includeNutrition=false`
+        )
+        .then(response => response.json())
+        .then(data => setImageUrl(data.image))
+        .catch(() => console.log("Error"))
+    }, [meal.id]);
+
 
 
     return (
