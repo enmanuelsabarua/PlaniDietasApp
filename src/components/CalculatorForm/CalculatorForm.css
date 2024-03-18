@@ -1,0 +1,82 @@
+section {
+  margin: 2rem 0 1rem 0;
+}
+
+.controls {
+  background-color: white;
+  margin: 50px 0 10px;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.controls h2 {
+  margin-bottom: 10px;
+}
+
+input {
+  text-align: center;
+  padding: 0.5rem;
+  text-align: start;
+}
+
+label {
+  margin-bottom: 20px;
+}
+
+.age input {
+  margin: 0 20px 0 50px;
+}
+
+.gender {
+  display: flex;
+}
+
+.gender label {
+  margin-left: 10px;
+}
+
+.gender p {
+  margin-right: 24px;
+}
+
+.height input {
+  margin-left: 9px;
+}
+
+.weight input {
+  margin-left: 22px;
+}
+
+.activity select {
+  margin-left: 21px;
+  padding: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: rgb(252, 229, 50);
+  border: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgb(211, 192, 44);
+}
+
+.controls button {
+  background-color: black;
+  color: rgb(255, 225, 0);
+  align-self: center;
+}
+
+.controls button:hover {
+  cursor: pointer;
+  background-color: rgb(252, 229, 50);
+  color: black;
+}
