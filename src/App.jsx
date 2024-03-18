@@ -1,36 +1,21 @@
-import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import { MealList } from './components/MealList/MealList';
 import { NavBar } from './components/NavBar/NavBar';
+import { Calculator } from './pages/Calculator';
+import { Forum } from './pages/Forum';
+import { Account } from './pages/Account';
 
 function App() {
-  const [mealData, setMealData] = useState(null);
-  const [calories, setCalories] = useState(2000);
-
-  const handleChange = e => {
-    setCalories(e.target.value);
-  }
-
-  const getMealData = async () => {
-    try {
-      const response = await fetch(
-        `https://api.spoonacular.com/mealplanner/generate?apiKey=7ee5a525aaef40808ebc28627d337369&timeFrame=day&targetCalories${calories}`
-      );
-      const data = await response.json();
-      setMealData(data);
-    } catch (error) {
-      console.log("Error");
-    }
-  }
-
   return (
-    <div className="App">
-      <NavBar />
-      <section className="controls">
-        <input type="number" placeholder='Calorias (e.g. 2000)' onChange={handleChange} />
-      </section>
-      <button onClick={getMealData}>Obtener Plan Diario</button>
-      {mealData && <MealList mealData={mealData} />}
+    <div>
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route path='/' element={<Calculator />} />
+          <Route path='/forum' element={<Forum />} />
+          <Route path='/account' element={<Account />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }

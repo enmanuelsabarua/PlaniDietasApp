@@ -12,7 +12,7 @@ article {
   margin-bottom: 1rem;
 }
 
-a {
+.meal a {
   text-decoration: none;
   background-color: rgb(252, 229, 50);
   color: black;
@@ -20,7 +20,7 @@ a {
   padding: 0.5rem 1rem;
 }
 
-a:hover {
+.meal a:hover {
   cursor: pointer;
   background-color: rgb(211, 192, 44);
 }
