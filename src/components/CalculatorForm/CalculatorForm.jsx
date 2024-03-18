@@ -2,15 +2,14 @@ import { useState } from 'react';
 import { MealList } from '../MealList/MealList';
 import './CalculatorForm.css';
 
-export const CalculatorForm = () => {
+export const CalculatorForm = ({ calories, setCalories, activity, setActivity }) => {
   const [mealData, setMealData] = useState(null);
-  const [calories, setCalories] = useState(2000);
 
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
-  const [activity, setActivity] = useState('');
+
 
 
   const handleChange = e => {
@@ -36,7 +35,7 @@ export const CalculatorForm = () => {
   const calculateCalories = (e) => {
     e.preventDefault();
 
-    // Basal metabolic rate
+    // Basal metabolic rate (Mifflin-St Jeor Equation)
     let BMR = (10 * Number(weight)) + (6.25 * Number(height)) - (5 * Number(age));
     if (gender === 'male') {
       BMR += 5;
@@ -68,7 +67,7 @@ export const CalculatorForm = () => {
         break;
     }
 
-    console.log(BMR);
+    setCalories(BMR.toFixed(0));
   }
 
   return (

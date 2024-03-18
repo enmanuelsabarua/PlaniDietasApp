@@ -1,0 +1,68 @@
+.results {
+  margin-top: 50px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-items: center;
+  align-items: center;
+  background-color: white;
+  transition: background-color 0.3s ease-in;
+}
+
+.row:hover .description {
+  cursor: pointer;
+  color: white;
+  font-size: 22px;
+}
+
+.row:hover {
+  background-color: rgb(0, 181, 0);
+}
+
+.row:hover .description p {
+  color: rgba(255, 255, 255, 0.614);
+}
+
+.row:first-of-type {
+  border-radius: 20px 0 0 0;
+}
+
+.row:last-of-type {
+  border-radius: 0 0 0 20px;
+}
+
+.description {
+  text-align: center;
+  font-size: 20px;
+  transition: all 0.3s ease-in;
+  padding: 10px;
+}
+
+.description p {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.614);
+  transition: all 0.3s ease-in;
+}
+
+.calories {
+  padding: 20px;
+  color: white;
+  font-weight: 600;
+  background-color: rgb(0, 181, 0);
+  border-radius: 50px 0 0 50px;
+}
+
+.calories span {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.calories p:last-of-type {
+  font-weight: 400;
+}
+
+.calorie {
+  font-size: 20px;
+}
