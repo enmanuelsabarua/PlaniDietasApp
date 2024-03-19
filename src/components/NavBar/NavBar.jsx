@@ -20,9 +20,11 @@ export const NavBar = () => {
                     <li><Link to='/forum' onClick={() => setActiveLink('forum')} style={{ fontWeight: activeLink === 'forum' && '600' }}>Foro</Link></li>
                     <li><Link to='/account' onClick={() => setActiveLink('account')} style={{ fontWeight: activeLink === 'account' && '600' }}>Cuenta</Link></li>
                 </ul>
-                <div className="login-button">
-                    <button>Log in</button>
-                </div>
+                <Link to='/login' onClick={() => setActiveLink('log in')}>
+                    <div className="login-button">
+                        <button>Regístrate</button>
+                    </div>
+                </Link>
             </div>
         </nav>
     )

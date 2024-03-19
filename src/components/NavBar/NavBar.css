@@ -23,7 +23,8 @@
 }
 
 .logo p span {
-  color: rgb(242, 214, 0);
+  color: rgb(252, 229, 50);
+  -webkit-text-stroke: .5px black;
 }
 
 .navbar-right {
