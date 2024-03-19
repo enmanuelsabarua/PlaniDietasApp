@@ -1,32 +1,13 @@
 import { useState } from 'react';
-import { MealList } from '../MealList/MealList';
 import './CalculatorForm.css';
 
-export const CalculatorForm = ({ calories, setCalories, activity, setActivity }) => {
-  const [mealData, setMealData] = useState(null);
+export const CalculatorForm = ({ setCalories, activity, setActivity }) => {
 
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
 
-
-
-  const handleChange = e => {
-    setCalories(e.target.value);
-  }
-
-  const getMealData = async () => {
-    try {
-      const response = await fetch(
-        `https://api.spoonacular.com/mealplanner/generate?apiKey=7ee5a525aaef40808ebc28627d337369&timeFrame=day&targetCalories${calories}`
-      );
-      const data = await response.json();
-      setMealData(data);
-    } catch (error) {
-      console.log("Error");
-    }
-  }
 
   const setGenderOnChange = e => {
     setGender(e.target.value);
@@ -117,11 +98,6 @@ export const CalculatorForm = ({ calories, setCalories, activity, setActivity })
 
         <button type='submit'>Calcular calorías</button>
       </form>
-
-      {/* <input type="number" placeholder='Calorias (e.g. 2000)' onChange={handleChange} /> */}
-
-      <button className='diet-btn' onClick={getMealData}>Obtener Plan Diario</button>
-      {mealData && <MealList mealData={mealData} />}
     </>
   )
 }

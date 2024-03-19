@@ -19,6 +19,8 @@ export const MealList = ({ mealData }) => {
       <section className="meals">
         {mealData.meals.map(meal => <Meal key={meal.id} meal={meal} />)}
       </section>
+
+      <button className='diet-btn'>Guardar</button>
     </main>
   )
 }

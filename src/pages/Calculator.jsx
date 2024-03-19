@@ -9,7 +9,7 @@ export const Calculator = () => {
     return (
         <div className="calculator">
             <CaloriesResults calories={calories} activity={activity} />
-            <CalculatorForm calories={calories} setCalories={setCalories} activity={activity} setActivity={setActivity} />
+            <CalculatorForm setCalories={setCalories} activity={activity} setActivity={setActivity} />
         </div>
     )
 }

@@ -1,6 +1,23 @@
+import { useState } from 'react';
 import './CaloriesResults.css';
+import { MealList } from '../MealList/MealList';
 
 export const CaloriesResults = ({ calories, activity }) => {
+    const [mealData, setMealData] = useState(null);
+
+    const getMealData = async (targetCalories) => {
+        console.log(targetCalories);
+        try {
+            const response = await fetch(
+                `https://api.spoonacular.com/mealplanner/generate?apiKey=7ee5a525aaef40808ebc28627d337369&timeFrame=day&targetCalories=${targetCalories}`
+            );
+            const data = await response.json();
+            setMealData(data);
+        } catch (error) {
+            console.log("Error");
+        }
+    }
+
     if (activity === '1' && calories) {
         return (
             <div className='results'>
@@ -20,7 +37,7 @@ export const CaloriesResults = ({ calories, activity }) => {
             <>
                 <div className="maintain-weight">
                     <h3>(Selecciona tu objetivo)</h3>
-                    <div className="row">
+                    <div className="row" onClick={() => getMealData(calories)}>
                         <div className='description'>
                             Mantener peso
                         </div>
@@ -34,7 +51,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                 <div className="result-column">
                     <div className='results'>
                         <h2>Cut/Definición</h2>
-                        <div className="row">
+                        <div className="row"  onClick={() => getMealData(calories - 250)}>
                             <div className='description'>
                                 Pérdida de peso leve
                                 <p>0.25 kg/semana</p>
@@ -44,7 +61,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                                 <p>Calorías/dia</p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row"  onClick={() => getMealData(calories - 500)}>
                             <div className='description'>
                                 Perdida de peso
                                 <p>0.5 kg/semana</p>
@@ -54,7 +71,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                                 <p>Calorías/dia</p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row"  onClick={() => getMealData(calories - 1000)}>
                             <div className='description'>
                                 Perdida de peso extrema
                                 <p>1 kg/semana</p>
@@ -68,7 +85,7 @@ export const CaloriesResults = ({ calories, activity }) => {
 
                     <div className='results'>
                         <h2>Bulk/Volumen</h2>
-                        <div className="row">
+                        <div className="row"  onClick={() => getMealData(+calories + 250)}>
                             <div className='description'>
                                 Aumento de peso leve
                                 <p>0.25 kg/semana</p>
@@ -78,7 +95,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                                 <p>Calorías/dia</p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row"  onClick={() => getMealData(+calories + 500)}>
                             <div className='description'>
                                 Aumento de peso
                                 <p>0.5 kg/semana</p>
@@ -88,7 +105,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                                 <p>Calorías/dia</p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row"  onClick={() => getMealData(+calories + 1000)}>
                             <div className='description'>
                                 Aumento de peso rápido
                                 <p>1 kg/semana</p>
@@ -100,6 +117,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                         </div>
                     </div>
                 </div>
+                {mealData && <MealList mealData={mealData} />}
             </>
         )
     }
