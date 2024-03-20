@@ -10,9 +10,9 @@ export const MealList = ({ mealData }) => {
         <h1>Macros</h1>
         <ul>
           <li>Calorías: {nutrients.calories.toFixed(0)}</li>
-          <li>Carbohidratos: {nutrients.carbohydrates.toFixed(0)}</li>
-          <li>Grasa: {nutrients.fat.toFixed(0)}</li>
-          <li>Proteína: {nutrients.protein.toFixed(0)}</li>
+          <li>Carbohidratos: {nutrients.carbohydrates.toFixed(0)}g</li>
+          <li>Grasa: {nutrients.fat.toFixed(0)}g</li>
+          <li>Proteína: {nutrients.protein.toFixed(0)}g</li>
         </ul>
       </section>
 

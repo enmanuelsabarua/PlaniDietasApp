@@ -5,10 +5,11 @@ import { Calculator } from './pages/Calculator';
 import { Forum } from './pages/Forum';
 import { Account } from './pages/Account';
 import { LoginSignup } from './pages/LoginSignup';
+import { Footer } from './components/Footer/Footer';
 
 function App() {
   return (
-    <div>
+    <div className='app'>
       <BrowserRouter>
         <NavBar />
         <Routes>
@@ -17,6 +18,7 @@ function App() {
           <Route path='/account' element={<Account />} />
           <Route path='/login' element={<LoginSignup />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   )

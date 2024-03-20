@@ -20,11 +20,11 @@ export const Meal = ({ meal }) => {
             <h1>{meal.title}</h1>
             <img src={imageUrl} alt="Recipe" />
             <ul className="instructions">
-                <li>Tiempo de preparación: {meal.readyInMinutes} minutes</li>
+                <li>Tiempo de preparación: {meal.readyInMinutes} minutos</li>
                 <li>Numero de servicios: {meal.servings}</li>
             </ul>
 
-            <a href={meal.sourceUrl}>Ir a la receta</a>
+            <a href={meal.sourceUrl} target="_blank">Ir a la receta</a>
         </article>
     )
 }
