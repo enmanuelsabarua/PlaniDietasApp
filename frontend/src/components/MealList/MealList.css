@@ -8,9 +8,6 @@ main {
   display: flex;
   width: 35rem;
   justify-content: space-evenly;
-}
-
-ul {
   list-style: none;
 }
 

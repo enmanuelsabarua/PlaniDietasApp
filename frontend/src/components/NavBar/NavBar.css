@@ -37,6 +37,7 @@
   display: flex;
   font-size: 20px;
   gap: 10px;
+  list-style: none;
 }
 
 .navbar a {

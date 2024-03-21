@@ -98,6 +98,27 @@ export const CalculatorForm = ({ setCalories, activity, setActivity }) => {
 
         <button type='submit'>Calcular calorías</button>
       </form>
+      <div className="calculator-info">
+        <ul className='exercises-description'>
+          <li><strong>Ejercicio:</strong> 15-30 minutos de actividad a frecuencia cardíaca elevada.</li>
+          <li><strong>Ejercicio intenso:</strong> 45-120 minutos de actividad de frecuencia cardíaca elevada.</li>
+          <li><strong>Ejercicio muy intenso:</strong> Más de 2 horas de actividad de frecuencia cardíaca elevada.</li>
+        </ul>
+        <div className="calculator-description">
+          <p>Esta calculadora de calorías se basa una ecuación y los resultados se basan en un promedio estimado. La ecuación utilizada en esta calculadora es la de Harris-Benedict, fue una de las primeras ecuaciones utilizadas para calcular la tasa metabólica basal (TMB), que es la cantidad de energía gastada por día en reposo.</p>
+          <h4>Ecuación de Mifflin-St Jeor:</h4>
+          <p>Para hombres: TMB = 10W + 6.25H - 5A + 5</p>
+          <p>Para mujeres: TMB = 10W + 6.25H - 5A - 161</p>
+          <div className="equation-legend">
+            <p>Donde:</p>
+            <p>W es peso corporal en kg</p>
+            <p>H es la altura en cm</p>
+            <p>A es la edad</p>
+          </div>
+
+          <p>El valor obtenido de estas ecuaciones es el número estimado de calorías que una persona puede consumir en un día para mantener su peso corporal, suponiendo que permanezca en reposo. Este valor se multiplica por un factor de actividad (generalmente 1.2-1.95) que depende de los niveles típicos de ejercicio de una persona, que representa los momentos del día en que una persona no está en reposo.</p>
+        </div>
+      </div>
     </>
   )
 }

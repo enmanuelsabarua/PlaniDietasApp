@@ -1,6 +1,7 @@
 .result-column {
   display: flex;
-  gap: 20px;
+  gap: 80px;
+  margin-bottom: 20px;
 }
 
 .results {
