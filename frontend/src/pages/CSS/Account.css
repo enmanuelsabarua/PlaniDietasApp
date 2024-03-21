@@ -1,0 +1,23 @@
+.account {
+  background-color: white;
+  padding: 20px 40px;
+  margin-top: 40px;
+  max-width: 90%;
+}
+
+.account h2 {
+    font-size: 40px;
+}
+
+.objective h3 {
+    font-size: 20px;
+}
+
+.objective {
+  margin: 20px 0;
+}
+
+.diet h3 {
+    font-size: 30px;
+    text-align: center;
+}

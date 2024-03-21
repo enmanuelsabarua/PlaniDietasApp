@@ -1,8 +1,14 @@
 import { Meal } from "../Meal/Meal"
 import './MealList.css';
+import diet from "../../assets/data";
 
-export const MealList = ({ mealData }) => {
+export const MealList = ({ mealData, onlyRead = false }) => {
   const nutrients = mealData.nutrients;
+
+  const saveDiet = data => {
+    // eslint-disable-next-line no-import-assign
+    diet.push(data);
+  }
 
   return (
     <main>
@@ -20,7 +26,7 @@ export const MealList = ({ mealData }) => {
         {mealData.meals.map(meal => <Meal key={meal.id} meal={meal} />)}
       </section>
 
-      <button className='diet-btn'>Guardar</button>
+      {!onlyRead && <button className='diet-btn' onClick={() => saveDiet(mealData)}>Guardar</button>}
     </main>
   )
 }
