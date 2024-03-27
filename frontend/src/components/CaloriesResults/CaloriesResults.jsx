@@ -6,7 +6,6 @@ export const CaloriesResults = ({ calories, activity }) => {
     const [mealData, setMealData] = useState(null);
 
     const getMealData = async (targetCalories) => {
-        console.log(targetCalories);
         try {
             const response = await fetch(
                 `https://api.spoonacular.com/mealplanner/generate?apiKey=7ee5a525aaef40808ebc28627d337369&timeFrame=day&targetCalories=${targetCalories}`

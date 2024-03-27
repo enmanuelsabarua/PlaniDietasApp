@@ -1,13 +1,31 @@
 import { Meal } from "../Meal/Meal"
 import './MealList.css';
-import diet from "../../assets/data";
+import dietService from '../../services/diets';
 
-export const MealList = ({ mealData, onlyRead = false }) => {
-  const nutrients = mealData.nutrients;
+export const MealList = ({ mealData, setDiet, onlyRead = false }) => {
+  const { nutrients } = mealData;
 
-  const saveDiet = data => {
-    // eslint-disable-next-line no-import-assign
-    diet.push(data);
+  const saveDiet = async data => {
+    try {
+      const diets = await dietService.getAll();
+
+      if (diets.length) {
+        await dietService.update(diets[0].id, data);
+      } else {
+        await dietService.create(data);
+      }
+    } catch (error) {
+      console.error(`Couldn't save the diet: ${error}`);
+    }
+  }
+
+  const removeDiet = async id => {
+    try {
+      await dietService.remove(id);
+      setDiet([]);
+    } catch (error) {
+      console.error(`Couldn't remove the diet: ${error}`)
+    }
   }
 
   return (
@@ -26,7 +44,8 @@ export const MealList = ({ mealData, onlyRead = false }) => {
         {mealData.meals.map(meal => <Meal key={meal.id} meal={meal} />)}
       </section>
 
-      {!onlyRead && <button className='diet-btn' onClick={() => saveDiet(mealData)}>Guardar</button>}
+      {!onlyRead ? <button className='diet-btn' onClick={() => saveDiet(mealData)}>Guardar</button> : <button className='remove-diet-btn' onClick={() => removeDiet(mealData.id)}>Eliminar dieta</button>}
+
     </main>
   )
 }
