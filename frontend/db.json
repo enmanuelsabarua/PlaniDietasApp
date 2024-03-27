@@ -1,3 +1,39 @@
 {
-  "diets": []
+  "diets": [
+    {
+      "id": "c4e7",
+      "meals": [
+        {
+          "id": 634882,
+          "imageType": "jpg",
+          "title": "Best Breakfast Burrito",
+          "readyInMinutes": 45,
+          "servings": 4,
+          "sourceUrl": "https://spoonacular.com/best-breakfast-burrito-634882"
+        },
+        {
+          "id": 650119,
+          "imageType": "jpg",
+          "title": "Linguine Alla Carbonara",
+          "readyInMinutes": 30,
+          "servings": 4,
+          "sourceUrl": "https://spoonacular.com/linguine-alla-carbonara-650119"
+        },
+        {
+          "id": 1697535,
+          "imageType": "jpg",
+          "title": "Panera Spicy Thai Salad",
+          "readyInMinutes": 20,
+          "servings": 4,
+          "sourceUrl": "https://spoonacular.com/panera-spicy-thai-salad-1697535"
+        }
+      ],
+      "nutrients": {
+        "calories": 2953.32,
+        "protein": 175.21,
+        "fat": 116.39,
+        "carbohydrates": 305.77
+      }
+    }
+  ]
 }
