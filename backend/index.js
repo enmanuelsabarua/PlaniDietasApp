@@ -1,8 +1,13 @@
 const express = require('express');
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+const cors = require('cors');
+require('dotenv').config();
+const Diet = require('./models/diet');
 
 app.use(express.json());
+app.use(cors());
+
 
 let diets = [
     {
@@ -46,18 +51,22 @@ app.get('/', (req, res) => {
     res.send('Hello world');
 });
 
-app.get('/api/diets', (req, res) => {
+app.get('/api/diets', async (req, res) => {
+    const diets = await Diet.find({});
     res.json(diets);
 });
 
-app.get('/api/diets/:id', (req, res) => {
-    const id = req.params.id;
-    const diet = diets.find(diet => diet.id === id);
-
-    if (diet) {
-        res.json(diet);
-    } else {
-        res.status(404).end();
+app.get('/api/diets/:id', async (req, res) => {
+    try {
+        const diet = await Diet.findById(req.params.id);
+        if (diet) {
+            res.json(diet)
+        } else {
+            res.status(404).end();
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(400).send({error: 'malformatted id'});
     }
 });
 
