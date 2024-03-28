@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const PORT = 3001;
 
-const diets = [
+app.use(express.json());
+
+let diets = [
     {
         "id": "c4e7",
         "meals": [
@@ -61,9 +63,36 @@ app.get('/api/diets/:id', (req, res) => {
 
 app.delete('/api/diets/:id', (req, res) => {
     const id = req.params.id;
-    diets.filter(diet => diet.id === id);
+    diets = diets.filter(diet => diet.id != id);
 
     res.status(204).end()
+});
+
+const generateId = () => {
+    const maxId = diets.length > 0
+        ? Math.max(...diets.map(n => n.id))
+        : 0
+    return maxId + 1
+}
+
+app.post('/api/diets', (req, res) => {
+    const { body } = req;
+    console.log(body);
+
+    if (!body.nutrients) {
+        return res.status(400).json({
+            error: 'content missing',
+        });
+    }
+
+    const diet = {
+        id: generateId(),
+        ...body,
+    }
+
+    diets = diets.concat(diet);
+
+    res.json(diet);
 });
 
 app.listen(PORT, () => {
