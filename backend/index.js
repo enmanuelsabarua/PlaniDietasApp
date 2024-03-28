@@ -56,7 +56,7 @@ app.get('/api/diets', async (req, res) => {
     res.json(diets);
 });
 
-app.get('/api/diets/:id', async (req, res) => {
+app.get('/api/diets/:id', async (req, res, next) => {
     try {
         const diet = await Diet.findById(req.params.id);
         if (diet) {
@@ -65,8 +65,7 @@ app.get('/api/diets/:id', async (req, res) => {
             res.status(404).end();
         }
     } catch (error) {
-        console.error(error);
-        res.status(400).send({error: 'malformatted id'});
+        next(error);
     }
 });
 
@@ -103,6 +102,18 @@ app.post('/api/diets', (req, res) => {
 
     res.json(diet);
 });
+
+const errorHandler = (error, req, res, next) => {
+    console.error(error.message);
+
+    if (error.name === 'CastError') {
+        return res.status(400).send({ error: 'malformatted id' });
+    }
+
+    next(error);
+}
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
