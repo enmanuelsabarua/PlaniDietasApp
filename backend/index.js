@@ -8,45 +8,6 @@ const Diet = require('./models/diet');
 app.use(express.json());
 app.use(cors());
 
-
-let diets = [
-    {
-        "id": "c4e7",
-        "meals": [
-            {
-                "id": 634882,
-                "imageType": "jpg",
-                "title": "Best Breakfast Burrito",
-                "readyInMinutes": 45,
-                "servings": 4,
-                "sourceUrl": "https://spoonacular.com/best-breakfast-burrito-634882"
-            },
-            {
-                "id": 650119,
-                "imageType": "jpg",
-                "title": "Linguine Alla Carbonara",
-                "readyInMinutes": 30,
-                "servings": 4,
-                "sourceUrl": "https://spoonacular.com/linguine-alla-carbonara-650119"
-            },
-            {
-                "id": 1697535,
-                "imageType": "jpg",
-                "title": "Panera Spicy Thai Salad",
-                "readyInMinutes": 20,
-                "servings": 4,
-                "sourceUrl": "https://spoonacular.com/panera-spicy-thai-salad-1697535"
-            }
-        ],
-        "nutrients": {
-            "calories": 2953.32,
-            "protein": 175.21,
-            "fat": 116.39,
-            "carbohydrates": 305.77
-        }
-    }
-]
-
 app.get('/', (req, res) => {
     res.send('Hello world');
 });
@@ -69,23 +30,17 @@ app.get('/api/diets/:id', async (req, res, next) => {
     }
 });
 
-app.delete('/api/diets/:id', (req, res) => {
-    const id = req.params.id;
-    diets = diets.filter(diet => diet.id != id);
-
-    res.status(204).end()
+app.delete('/api/diets/:id', async (req, res, next) => {
+    try {
+        await Diet.findByIdAndDelete(req.params.id);
+        res.status(204).end();
+    } catch (error) {
+        next(error);
+    }
 });
 
-const generateId = () => {
-    const maxId = diets.length > 0
-        ? Math.max(...diets.map(n => n.id))
-        : 0
-    return maxId + 1
-}
-
-app.post('/api/diets', (req, res) => {
+app.post('/api/diets', async (req, res, next) => {
     const { body } = req;
-    console.log(body);
 
     if (!body.nutrients) {
         return res.status(400).json({
@@ -93,14 +48,16 @@ app.post('/api/diets', (req, res) => {
         });
     }
 
-    const diet = {
-        id: generateId(),
+    const diet = new Diet({
         ...body,
+    });
+
+    try {
+        const savedDiet = await diet.save();
+        res.json(savedDiet);
+    } catch (error) {
+        next(error);
     }
-
-    diets = diets.concat(diet);
-
-    res.json(diet);
 });
 
 const unknownEndpoint = (req, res) => {
