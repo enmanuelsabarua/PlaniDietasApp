@@ -1,5 +1,6 @@
 const dietsRouter = require('express').Router();
 const Diet = require('../models/diet');
+const User = require('../models/user');
 
 dietsRouter.get('/', async (req, res) => {
     const diets = await Diet.find({});
@@ -37,9 +38,14 @@ dietsRouter.post('/', async (req, res, next) => {
         });
     }
 
+    const user = await User.findById(body.userId);
+
     const diet = new Diet({
         ...body,
     });
+
+    user.diet = diet;
+    await user.save();
 
     try {
         const savedDiet = await diet.save();
