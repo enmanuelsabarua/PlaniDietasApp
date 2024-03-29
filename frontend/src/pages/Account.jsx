@@ -5,15 +5,15 @@ import { useEffect } from 'react';
 import dietService from '../services/diets';
 import { useState } from 'react';
 
-export const Account = () => {
+export const Account = ({ user }) => {
     const [diet, setDiet] = useState([]);
 
     useEffect(() => {
         dietService
-        .getAll()
-        .then(diet => setDiet(diet));
+            .getAll()
+            .then(diet => setDiet(diet));
     }, []);
-    
+
     return (
         <div className='account'>
             <h2>Enmanuel Sanchez Abarúa</h2>

@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import './CSS/LoginSignup.css';
+import loginService from '../services/login';
+import dietService from '../services/diets';
 
-export const LoginSignup = () => {
+export const LoginSignup = ({ setUser }) => {
     const [state, setState] = useState('Iniciar sesión');
+    const [errorMessage, setErrorMessage] = useState(null);
     const [formData, setFormData] = useState({
-        username: '',
+        name: '',
         password: '',
         email: '',
     });
@@ -15,7 +18,22 @@ export const LoginSignup = () => {
 
     const login = async e => {
         e.preventDefault();
-        console.log('Login', formData);
+        try {
+            const user = await loginService.login({
+                email: formData.email,
+                password: formData.password
+            });
+
+            window.localStorage.setItem('loggedUser', JSON.stringify(user));
+            dietService.setToken(user.token);
+            setUser(user);
+            setFormData({ name: '', password: '', email: '' });
+        } catch (error) {
+            setErrorMessage('Credenciales incorrectas');
+            setTimeout(() => {
+                setErrorMessage(null);
+            }, 5000);
+        }
     }
 
     const signup = async e => {
@@ -28,7 +46,7 @@ export const LoginSignup = () => {
             <form className="loginsignup-container" onSubmit={e => { state === 'Iniciar sesión' ? login(e) : signup(e) }}>
                 <h1>{state}</h1>
                 <div className="loginsignup-fields">
-                    {state === 'Registrarse' && <input type="text" placeholder="Tu nombre" name='username' required value={formData.username} onChange={changeHandler} />}
+                    {state === 'Registrarse' && <input type="text" placeholder="Tu nombre" name='name' required value={formData.name} onChange={changeHandler} />}
                     <input type="email" placeholder="Correo electrónico" name='email' required value={formData.email} onChange={changeHandler} />
                     <input type="password" placeholder="Contraseña" name='password' required value={formData.password} onChange={changeHandler} />
                 </div>
@@ -45,6 +63,7 @@ export const LoginSignup = () => {
                         </label>
                     </div>
                 }
+                {errorMessage && <div className="loginsignup-error">{errorMessage}</div>}
             </form>
         </div>
     )
