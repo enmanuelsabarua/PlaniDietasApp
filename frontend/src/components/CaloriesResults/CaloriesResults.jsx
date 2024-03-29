@@ -4,6 +4,10 @@ import { MealList } from '../MealList/MealList';
 
 export const CaloriesResults = ({ calories, activity }) => {
     const [mealData, setMealData] = useState(null);
+    const [objetive, setObjetive] = useState({
+        description: '',
+        weight: ''
+    })
 
     const getMealData = async (targetCalories) => {
         try {
@@ -36,7 +40,7 @@ export const CaloriesResults = ({ calories, activity }) => {
             <>
                 <div className="maintain-weight">
                     <h3>(Selecciona tu objetivo)</h3>
-                    <div className="row" onClick={() => getMealData(calories)}>
+                    <div className="row" onClick={() => {getMealData(calories); setObjetive({...objetive, description: 'Mantener peso'})}}>
                         <div className='description'>
                             Mantener peso
                         </div>
@@ -50,7 +54,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                 <div className="result-column">
                     <div className='results'>
                         <h2>Cut/Definición</h2>
-                        <div className="row"  onClick={() => getMealData(calories - 250)}>
+                        <div className="row" onClick={() => {getMealData(calories - 250); setObjetive({description: 'Pérdida de peso leve', weight: '0.25 kg/semana'})}}>
                             <div className='description'>
                                 Pérdida de peso leve
                                 <p>0.25 kg/semana</p>
@@ -60,7 +64,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                                 <p>Calorías/dia</p>
                             </div>
                         </div>
-                        <div className="row"  onClick={() => getMealData(calories - 500)}>
+                        <div className="row" onClick={() => {getMealData(calories - 500); setObjetive({description: 'Pérdida de peso', weight: '0.5 kg/semana'})}}>
                             <div className='description'>
                                 Perdida de peso
                                 <p>0.5 kg/semana</p>
@@ -70,7 +74,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                                 <p>Calorías/dia</p>
                             </div>
                         </div>
-                        <div className="row"  onClick={() => getMealData(calories - 1000)}>
+                        <div className="row" onClick={() => {getMealData(calories - 1000); setObjetive({description: 'Perdida de peso extrema', weight: '1 kg/semana'})}}>
                             <div className='description'>
                                 Perdida de peso extrema
                                 <p>1 kg/semana</p>
@@ -84,7 +88,7 @@ export const CaloriesResults = ({ calories, activity }) => {
 
                     <div className='results'>
                         <h2>Bulk/Volumen</h2>
-                        <div className="row"  onClick={() => getMealData(+calories + 250)}>
+                        <div className="row" onClick={() => {getMealData(+calories + 250); setObjetive({description: 'Aumento de peso leve', weight: '0.25 kg/semana'})}}>
                             <div className='description'>
                                 Aumento de peso leve
                                 <p>0.25 kg/semana</p>
@@ -94,7 +98,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                                 <p>Calorías/dia</p>
                             </div>
                         </div>
-                        <div className="row"  onClick={() => getMealData(+calories + 500)}>
+                        <div className="row" onClick={() => {getMealData(+calories + 500); setObjetive({description: 'Aumento de peso', weight: '0.5 kg/semana'})}}>
                             <div className='description'>
                                 Aumento de peso
                                 <p>0.5 kg/semana</p>
@@ -104,7 +108,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                                 <p>Calorías/dia</p>
                             </div>
                         </div>
-                        <div className="row"  onClick={() => getMealData(+calories + 1000)}>
+                        <div className="row" onClick={() => {getMealData(+calories + 1000); setObjetive({description: 'Aumento de peso rápido', weight: '1 kg/semana'})}}>
                             <div className='description'>
                                 Aumento de peso rápido
                                 <p>1 kg/semana</p>
@@ -116,7 +120,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                         </div>
                     </div>
                 </div>
-                {mealData && <MealList mealData={mealData} />}
+                {mealData && <MealList mealData={mealData} objetive={objetive}/>}
             </>
         )
     }

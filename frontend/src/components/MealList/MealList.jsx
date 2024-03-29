@@ -2,7 +2,7 @@ import { Meal } from "../Meal/Meal"
 import './MealList.css';
 import dietService from '../../services/diets';
 
-export const MealList = ({ mealData, setDiet, onlyRead = false }) => {
+export const MealList = ({ mealData, setDiet, onlyRead = false, objetive }) => {
   const { nutrients } = mealData;
 
   const saveDiet = async data => {
@@ -44,7 +44,7 @@ export const MealList = ({ mealData, setDiet, onlyRead = false }) => {
         {mealData.meals.map(meal => <Meal key={meal.id} meal={meal} />)}
       </section>
 
-      {!onlyRead ? <button className='diet-btn' onClick={() => saveDiet(mealData)}>Guardar</button> : <button className='remove-diet-btn' onClick={() => removeDiet(mealData.id)}>Eliminar dieta</button>}
+      {!onlyRead ? <button className='diet-btn' onClick={() => saveDiet({mealData, objetive})}>Guardar</button> : <button className='remove-diet-btn' onClick={() => removeDiet(mealData.id)}>Eliminar dieta</button>}
 
     </main>
   )

@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     diet: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Diet'
+    },
+    objective: {
+        description: String,
+        weight: String
     }
 });
 

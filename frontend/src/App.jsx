@@ -25,7 +25,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Calculator />} />
           <Route path='/forum' element={<Forum />} />
-          <Route path='/account' element={<Account  user={user}/>} />
+          <Route path='/account' element={<Account  user={user} setUser={setUser}/>} />
           <Route path='/login' element={<LoginSignup  setUser={setUser}/>} />
         </Routes>
         <Footer />

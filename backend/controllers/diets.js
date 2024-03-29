@@ -55,13 +55,16 @@ dietsRouter.post('/', async (req, res, next) => {
             error: 'token missing or invalid',
         });
     }
-    
+
     const user = await User.findById(decodedToken.id);
 
+    const { objetive, ...dietInfo } = body;
+
     const diet = new Diet({
-        ...body,
+        ...dietInfo,
     });
 
+    user.objective = objetive;
     user.diet = diet;
     await user.save();
 
