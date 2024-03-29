@@ -17,12 +17,6 @@ const dietSchema = new mongoose.Schema({
         fat: Number,
         carbohydrates: Number,
     },
-    Users: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        }
-    ]
 });
 
 dietSchema.set('toJSON', {
