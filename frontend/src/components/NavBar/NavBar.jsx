@@ -6,7 +6,7 @@ import { UserContext } from '../../context/UserContext';
 
 export const NavBar = () => {
     const [activeLink, setActiveLink] = useState('calculator');
-    const {user} = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const logout = () => {
         window.localStorage.clear();
@@ -26,9 +26,9 @@ export const NavBar = () => {
             <div className="navbar-right">
                 <ul>
                     <li><Link to='/forum' onClick={() => setActiveLink('forum')} style={{ fontWeight: activeLink === 'forum' && '600' }}>Foro</Link></li>
-                    {user && <li><Link to='/account' onClick={() => setActiveLink('account')} style={{ fontWeight: activeLink === 'account' && '600' }}>Cuenta</Link></li>}
+                    {user.name && <li><Link to='/account' onClick={() => setActiveLink('account')} style={{ fontWeight: activeLink === 'account' && '600' }}>Cuenta</Link></li>}
                 </ul>
-                {user ?
+                {user.name ?
                     <Link to='/login' onClick={logout}>
                         <div className="login-button">
                             <button>Cerrar sesión</button>
