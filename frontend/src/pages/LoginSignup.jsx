@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './CSS/LoginSignup.css';
 import authService from '../services/auth';
 import dietService from '../services/diets';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
-export const LoginSignup = ({ setUser }) => {
+export const LoginSignup = () => {
     const [state, setState] = useState('Iniciar sesión');
     const [errorMessage, setErrorMessage] = useState(null);
     const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ export const LoginSignup = ({ setUser }) => {
         password: '',
         email: '',
     });
+
+    const { setUser } = useContext(UserContext);
 
     const navigate = useNavigate();
 

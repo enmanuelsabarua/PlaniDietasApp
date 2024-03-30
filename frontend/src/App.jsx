@@ -6,27 +6,17 @@ import { Forum } from './pages/Forum';
 import { Account } from './pages/Account';
 import { LoginSignup } from './pages/LoginSignup';
 import { Footer } from './components/Footer/Footer';
-import { useEffect, useState } from 'react';
 
 function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const loggedUser = window.localStorage.getItem('loggedUser');
-    if (loggedUser) {
-      setUser(JSON.parse(loggedUser));
-    }
-  }, []);
-
   return (
     <div className='app'>
       <BrowserRouter>
-        <NavBar user={user} />
+        <NavBar />
         <Routes>
           <Route path='/' element={<Calculator />} />
           <Route path='/forum' element={<Forum />} />
-          <Route path='/account' element={<Account  user={user} setUser={setUser}/>} />
-          <Route path='/login' element={<LoginSignup  setUser={setUser}/>} />
+          <Route path='/account' element={<Account />} />
+          <Route path='/login' element={<LoginSignup />} />
         </Routes>
         <Footer />
       </BrowserRouter>

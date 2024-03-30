@@ -1,23 +1,18 @@
 import './CSS/Account.css';
-// import diet from '../assets/data';
 import { MealList } from '../components/MealList/MealList';
-import { useEffect } from 'react';
-import dietService from '../services/diets';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '../context/UserContext';
 
-export const Account = ({ user }) => {
+
+export const Account = () => {
     const [diet, setDiet] = useState([]);
 
-    useEffect(() => {
-        dietService
-            .getAll()
-            .then(diet => setDiet(diet));
-    }, []);
+    const { user } = useContext(UserContext);
 
     return (
         <div className='account'>
             <h2>{user.name}</h2>
-            {diet.length || user.description ?
+            {diet.length && user.description ?
                 <>
                     <div className="objective">
                         <h3>Objetivo</h3>

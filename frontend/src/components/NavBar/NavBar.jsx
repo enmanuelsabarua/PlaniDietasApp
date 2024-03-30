@@ -1,10 +1,12 @@
 import './NavBar.css';
 import logo_icon from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '../../context/UserContext';
 
-export const NavBar = ({ user }) => {
+export const NavBar = () => {
     const [activeLink, setActiveLink] = useState('calculator');
+    const {user} = useContext(UserContext);
 
     const logout = () => {
         window.localStorage.clear();
