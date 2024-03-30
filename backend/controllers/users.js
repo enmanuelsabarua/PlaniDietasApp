@@ -30,7 +30,7 @@ userRouter.post('/', async (req, res, next) => {
 
     try {
         const savedUser = await user.save();
-        res.status(201).json({savedUser, token});
+        res.status(201).json({email: savedUser.email, name: savedUser.name, token});
     } catch (error) {
         next(error);
     }

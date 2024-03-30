@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './CSS/LoginSignup.css';
-import loginService from '../services/login';
+import authService from '../services/auth';
 import dietService from '../services/diets';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginSignup = ({ setUser }) => {
     const [state, setState] = useState('Iniciar sesión');
@@ -12,6 +13,8 @@ export const LoginSignup = ({ setUser }) => {
         email: '',
     });
 
+    const navigate = useNavigate();
+
     const changeHandler = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
@@ -19,7 +22,7 @@ export const LoginSignup = ({ setUser }) => {
     const login = async e => {
         e.preventDefault();
         try {
-            const user = await loginService.login({
+            const user = await authService.login({
                 email: formData.email,
                 password: formData.password
             });
@@ -28,6 +31,7 @@ export const LoginSignup = ({ setUser }) => {
             dietService.setToken(user.token);
             setUser(user);
             setFormData({ name: '', password: '', email: '' });
+            navigate('/');
         } catch (error) {
             setErrorMessage('Credenciales incorrectas');
             setTimeout(() => {
@@ -38,7 +42,25 @@ export const LoginSignup = ({ setUser }) => {
 
     const signup = async e => {
         e.preventDefault();
-        console.log('Signup', formData);
+        try {
+            const user = await authService.signup({
+                name: formData.name,
+                email: formData.email,
+                password: formData.password
+            });
+
+            console.log(user);
+
+            window.localStorage.setItem('loggedUser', JSON.stringify(user));
+            setUser(user);
+            setFormData({ name: '', password: '', email: '' });
+            navigate('/');
+        } catch (error) {
+            setErrorMessage('Error al crear la cuenta');
+            setTimeout(() => {
+                setErrorMessage(null);
+            }, 5000);
+        }
     }
 
     return (
@@ -46,7 +68,7 @@ export const LoginSignup = ({ setUser }) => {
             <form className="loginsignup-container" onSubmit={e => { state === 'Iniciar sesión' ? login(e) : signup(e) }}>
                 <h1>{state}</h1>
                 <div className="loginsignup-fields">
-                    {state === 'Registrarse' && <input type="text" placeholder="Tu nombre" name='name' required value={formData.name} onChange={changeHandler} />}
+                    {state === 'Registrarse' && <input type="text" placeholder="Nombre completo" name='name' required value={formData.name} onChange={changeHandler} />}
                     <input type="email" placeholder="Correo electrónico" name='email' required value={formData.email} onChange={changeHandler} />
                     <input type="password" placeholder="Contraseña" name='password' required value={formData.password} onChange={changeHandler} />
                 </div>
