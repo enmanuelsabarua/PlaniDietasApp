@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import dietService from '../services/diets';
 import { useState } from 'react';
 
-export const Account = ({ user, setUser }) => {
+export const Account = ({ user }) => {
     const [diet, setDiet] = useState([]);
 
     useEffect(() => {
