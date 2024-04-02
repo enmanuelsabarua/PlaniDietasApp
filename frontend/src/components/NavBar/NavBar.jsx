@@ -3,12 +3,15 @@ import logo_icon from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 export const NavBar = () => {
     const [activeLink, setActiveLink] = useState('calculator');
     const { user } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const logout = () => {
+        navigate('/');
         window.localStorage.clear();
         window.location.reload();
     }

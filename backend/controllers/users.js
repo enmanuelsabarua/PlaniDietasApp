@@ -9,6 +9,27 @@ userRouter.get('/', async (req, res) => {
     res.json(users);
 });
 
+userRouter.get('/:id', async (req, res) => {
+    const user = await User.findById(req.params.id).populate('diet');
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).end();
+    }
+});
+
+userRouter.put('/:id', async (req, res, next) => {
+    const { objective } = req.body;
+
+    try {
+        // Objetive is not being updated
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, { objective: { description: objective.description, weight: objective.weight } }, { new: true });
+        res.json(updatedUser);
+    } catch (error) {
+        next(error);
+    }
+});
+
 userRouter.post('/', async (req, res, next) => {
     const { name, email, password } = req.body;
 
@@ -19,6 +40,11 @@ userRouter.post('/', async (req, res, next) => {
         name,
         email,
         passwordHash,
+        diet: null,
+        objective: {
+            description: null,
+            weight: null,
+        }
     });
 
     const userForToken = {
@@ -30,7 +56,8 @@ userRouter.post('/', async (req, res, next) => {
 
     try {
         const savedUser = await user.save();
-        res.status(201).json({email: savedUser.email, name: savedUser.name, token});
+        console.log(savedUser);
+        res.status(201).json({ ...savedUser.toJSON(), token });
     } catch (error) {
         next(error);
     }

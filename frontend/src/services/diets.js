@@ -12,6 +12,16 @@ const getAll = async () => {
     return req.data;
 }
 
+const getOne = async id => {
+    const req = await axios.get(`${baseUrl}/${id}`);
+    return req.data;
+}
+
+const getOneByCalories = async id => {
+    const req = await axios.get(`${baseUrl}/calorie/${id}`);
+    return req.data;
+}
+
 const create = async newObject => {
     const config = {
         headers: { Authorization: token }
@@ -33,6 +43,8 @@ const remove = async id => {
 
 export default {
     getAll,
+    getOne,
+    getOneByCalories,
     create,
     update,
     remove,

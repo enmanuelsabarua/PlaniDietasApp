@@ -11,4 +11,15 @@ const signup = async credentials => {
     return res.data;
 }
 
-export default { login, signup }
+const getUser = async id => {
+    const res = await axios.get(`${baseUrl}/users/${id}`);
+    return res.data;
+}
+
+const update = async (id, data) => {
+    const res = await axios.put(`${baseUrl}/users/${id}`, data);
+    return res.data;
+}
+
+
+export default { login, signup, getUser, update }

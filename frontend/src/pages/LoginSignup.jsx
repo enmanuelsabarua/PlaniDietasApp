@@ -55,6 +55,7 @@ export const LoginSignup = () => {
             console.log(user);
 
             window.localStorage.setItem('loggedUser', JSON.stringify(user));
+            dietService.setToken(user.token);
             setUser(user);
             setFormData({ name: '', password: '', email: '' });
             navigate('/');

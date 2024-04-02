@@ -1,19 +1,46 @@
 import { Meal } from "../Meal/Meal"
 import './MealList.css';
 import dietService from '../../services/diets';
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import authService from "../../services/auth";
 
 export const MealList = ({ mealData, setDiet, onlyRead = false, objetive }) => {
   const { nutrients } = mealData;
 
-  const saveDiet = async data => {
-    try {
-      const diets = await dietService.getAll();
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
-      if (diets.length) {
-        await dietService.update(diets[0].id, data);
+  const saveDiet = async data => {
+    if (!user.name) {
+      navigate('/login');
+      return;
+    }
+
+    console.log(data);
+
+    try {
+      const diet = await dietService.getOneByCalories(data.mealData.nutrients.calories);
+      console.log('diet', diet);
+
+      if (!diet) {
+        // Objetive is not being updated
+        console.log('diet existed', data);
+        const updatedUser = await authService.update(user.id, data);
+        setUser(updatedUser);
+        setDiet(diet);
+        navigate('/account');
       } else {
-        await dietService.create(data);
+        console.log('diet didnt exist', data);
+        const newDiet = await dietService.create({ ...data.mealData, objetive: data.objetive, id: data.mealData.nutrients.calories });
+        const updatedUser = await authService.getUser(user.id);
+        console.log('updated user', updatedUser);
+        setUser(updatedUser);
+        setDiet(newDiet);
+        navigate('/account');
       }
+
     } catch (error) {
       console.error(`Couldn't save the diet: ${error}`);
     }
@@ -44,7 +71,7 @@ export const MealList = ({ mealData, setDiet, onlyRead = false, objetive }) => {
         {mealData.meals.map(meal => <Meal key={meal.id} meal={meal} />)}
       </section>
 
-      {!onlyRead ? <button className='diet-btn' onClick={() => saveDiet({mealData, objetive})}>Guardar</button> : <button className='remove-diet-btn' onClick={() => removeDiet(mealData.id)}>Eliminar dieta</button>}
+      {!onlyRead ? <button className='diet-btn' onClick={() => saveDiet({ mealData, objetive })}>Guardar</button> : <button className='remove-diet-btn' onClick={() => removeDiet(mealData.id)}>Eliminar dieta</button>}
 
     </main>
   )

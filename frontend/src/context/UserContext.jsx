@@ -4,6 +4,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState({name: ''});
+    const [diet, setDiet] = useState({});
 
     useEffect(() => {
         const loggedUser = window.localStorage.getItem('loggedUser');
@@ -13,7 +14,7 @@ export const UserProvider = ({ children }) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, diet, setDiet}}>
             {children}
         </UserContext.Provider>
     );

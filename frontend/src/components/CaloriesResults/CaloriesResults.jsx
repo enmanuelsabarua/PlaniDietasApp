@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './CaloriesResults.css';
 import { MealList } from '../MealList/MealList';
+import { UserContext } from '../../context/UserContext';
 
 export const CaloriesResults = ({ calories, activity }) => {
     const [mealData, setMealData] = useState(null);
     const [objetive, setObjetive] = useState({
         description: '',
         weight: ''
-    })
+    });
+
+    const { setDiet } = useContext(UserContext);
 
     const getMealData = async (targetCalories) => {
         try {
@@ -120,7 +123,7 @@ export const CaloriesResults = ({ calories, activity }) => {
                         </div>
                     </div>
                 </div>
-                {mealData && <MealList mealData={mealData} objetive={objetive}/>}
+                {mealData && <MealList mealData={mealData} setDiet={setDiet} objetive={objetive}/>}
             </>
         )
     }

@@ -15,10 +15,23 @@ dietsRouter.get('/:id', async (req, res, next) => {
         if (diet) {
             res.json(diet)
         } else {
-            res.status(404).end();
         }
     } catch (error) {
-        next(error);
+        res.json({ error: 'diet not found' });
+        // next(error);
+    }
+});
+
+dietsRouter.get('/calorie/:id', async (req, res, next) => {
+    try {
+        const diet = await Diet.findOne({ id: req.params.id });
+        if (diet) {
+            res.json(diet)
+        } else {
+        }
+    } catch (error) {
+        res.json({ error: 'diet not found' });
+        // next(error);
     }
 });
 

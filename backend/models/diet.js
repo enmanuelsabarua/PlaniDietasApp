@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const dietSchema = new mongoose.Schema({
+    id: {
+        type: Number,
+        required: true,
+        unique: true
+    
+    },
     meals: [
         {
             id: Number,
