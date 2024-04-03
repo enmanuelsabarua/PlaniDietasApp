@@ -19,11 +19,10 @@ userRouter.get('/:id', async (req, res) => {
 });
 
 userRouter.put('/:id', async (req, res, next) => {
-    const { objective } = req.body;
+    const { body } = req;
 
     try {
-        // Objetive is not being updated
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, { objective: { description: objective.description, weight: objective.weight } }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, body, { new: true });
         res.json(updatedUser);
     } catch (error) {
         next(error);

@@ -13,8 +13,10 @@ export const Account = () => {
     useEffect(() => {
         const loggedUser = window.localStorage.getItem('loggedUser');
         if (loggedUser) {
-            dietsService.getOne(user.diet)
-                .then((fetchedDiet) => setDiet(fetchedDiet));
+            if (user.diet) {
+                dietsService.getOne(user.diet.id)
+                    .then((fetchedDiet) => { setDiet(fetchedDiet); console.log(user); });
+            }
         }
     }, []);
 

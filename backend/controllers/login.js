@@ -10,7 +10,7 @@ loginRouter.post('/', async (req, res) => {
     const user = await User.findOne({ email });
     const passwordCorrect = user === null
         ? false
-        : bcrypt.compare(password, user.passwordHash);
+        : await bcrypt.compare(password, user.passwordHash);
 
     if (!(user && passwordCorrect)) {
         return res.status(401).json({

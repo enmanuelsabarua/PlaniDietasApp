@@ -18,24 +18,28 @@ export const MealList = ({ mealData, setDiet, onlyRead = false, objetive }) => {
       return;
     }
 
-    console.log(data);
+    const token = window.localStorage.getItem('loggedUser') ? JSON.parse(window.localStorage.getItem('loggedUser')).token : null;
+    dietService.setToken(token);
+
 
     try {
       const diet = await dietService.getOneByCalories(data.mealData.nutrients.calories);
       console.log('diet', diet);
 
-      if (!diet) {
-        // Objetive is not being updated
+      if (diet) {
         console.log('diet existed', data);
-        const updatedUser = await authService.update(user.id, data);
+        const updatedUser = await authService.update(user.id, { objetive: { description: data.objetive.description, weight: data.objetive.weight }, diet: diet.id });
         setUser(updatedUser);
         setDiet(diet);
         navigate('/account');
       } else {
-        console.log('diet didnt exist', data);
+        console.log('diet did not exist', data);
         const newDiet = await dietService.create({ ...data.mealData, objetive: data.objetive, id: data.mealData.nutrients.calories });
         const updatedUser = await authService.getUser(user.id);
-        console.log('updated user', updatedUser);
+
+        // Test if the token remains on localStorage
+        const token = window.localStorage.getItem('loggedUser') ? JSON.parse(window.localStorage.getItem('loggedUser')).token : null;
+        localStorage.setItem('loggedUser', JSON.stringify({ ...updatedUser, token }));
         setUser(updatedUser);
         setDiet(newDiet);
         navigate('/account');
@@ -48,7 +52,10 @@ export const MealList = ({ mealData, setDiet, onlyRead = false, objetive }) => {
 
   const removeDiet = async id => {
     try {
-      await dietService.remove(id);
+      const updatedUser = await authService.update(id, { objective: { description: null, weight: null }, diet: null });
+      const token = window.localStorage.getItem('loggedUser') ? JSON.parse(window.localStorage.getItem('loggedUser')).token : null;
+      window.localStorage.setItem('loggedUser', JSON.stringify({ ...updatedUser, token }));
+      setUser(updatedUser);
       setDiet([]);
     } catch (error) {
       console.error(`Couldn't remove the diet: ${error}`)
@@ -71,7 +78,7 @@ export const MealList = ({ mealData, setDiet, onlyRead = false, objetive }) => {
         {mealData.meals.map(meal => <Meal key={meal.id} meal={meal} />)}
       </section>
 
-      {!onlyRead ? <button className='diet-btn' onClick={() => saveDiet({ mealData, objetive })}>Guardar</button> : <button className='remove-diet-btn' onClick={() => removeDiet(mealData.id)}>Eliminar dieta</button>}
+      {!onlyRead ? <button className='diet-btn' onClick={() => saveDiet({ mealData, objetive })}>Guardar</button> : <button className='remove-diet-btn' onClick={() => removeDiet(user.id)}>Eliminar dieta</button>}
 
     </main>
   )
