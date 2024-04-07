@@ -7,7 +7,7 @@ const config = require('../utils/config');
 loginRouter.post('/', async (req, res) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate('diet');
     const passwordCorrect = user === null
         ? false
         : await bcrypt.compare(password, user.passwordHash);

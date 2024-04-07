@@ -75,12 +75,12 @@ export const CalculatorForm = ({ setCalories, activity, setActivity }) => {
 
         <label className="height">
           Altura (cm)
-          <input type="number" name='height' value={height} onChange={(e) => setHeight(e.target.value)} required />
+          <input type="number" name='height' value={height} onChange={(e) => setHeight(e.target.value)} required min={10} />
         </label>
 
         <label className="weight">
           Peso (kg)
-          <input type="number" name='weight' value={weight} onChange={(e) => setWeight(e.target.value)} required />
+          <input type="number" name='weight' value={weight} onChange={(e) => setWeight(e.target.value)} required min={5} />
         </label>
 
         <label className="activity">
