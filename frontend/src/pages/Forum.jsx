@@ -3,13 +3,14 @@ import ChatFeed from '../components/ChatFeed/ChatFeed';
 import './CSS/Forum.css';
 
 export const Forum = () => {
+
   return (
     <div className='forum'>
       <ChatEngine
-        height="100vh"
-        projectID="b7be444f-a2a6-41e1-adb2-3ef97a10144c"
-        userName="admin"
-        userSecret="12345"
+        height="90vh"
+        projectID="3a2c7ff7-d120-4899-a273-907962b4b4e0"
+        userName="abarua"
+        userSecret="UD.NZqUP6t@#u-b"
         renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
       />
     </div>

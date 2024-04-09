@@ -28,8 +28,12 @@ export const NavBar = () => {
             </Link>
             <div className="navbar-right">
                 <ul>
-                    <li><Link to='/forum' onClick={() => setActiveLink('forum')} style={{ fontWeight: activeLink === 'forum' && '600' }}>Foro</Link></li>
-                    {user.name && <li><Link to='/account' onClick={() => setActiveLink('account')} style={{ fontWeight: activeLink === 'account' && '600' }}>Cuenta</Link></li>}
+                    {user.name &&
+                        <>
+                            <li><Link to='/forum' onClick={() => setActiveLink('forum')} style={{ fontWeight: activeLink === 'forum' && '600' }}>Foro</Link></li>
+                            <li><Link to='/account' onClick={() => setActiveLink('account')} style={{ fontWeight: activeLink === 'account' && '600' }}>Cuenta</Link></li>
+                        </>
+                    }
                 </ul>
                 {user.name ?
                     <Link to='/login' onClick={logout}>
